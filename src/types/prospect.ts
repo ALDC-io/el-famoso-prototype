@@ -46,6 +46,7 @@ export interface ProspectConfig {
     responses: ZeusQA[];
     starterChips: string[];
     fallbackMessage: string;
+    apiUrl?: string;
   };
   business: {
     type: string;
@@ -53,4 +54,10 @@ export interface ProspectConfig {
     revenueRange: string;
     monthlyVisitors: number;
   };
+  eclipse?: {
+    apiUrl?: string;   // Set via NEXT_PUBLIC_ECLIPSE_API_URL env var
+    apiKey?: string;   // Set via NEXT_PUBLIC_ECLIPSE_API_KEY env var
+  };
+  /** Dashboard variant shown on the main /dashboard route. Defaults to 'standard'. */
+  dashboardVariant?: "standard" | "profitability" | "warehouse" | "sources";
 }
