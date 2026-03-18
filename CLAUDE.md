@@ -110,6 +110,17 @@ colors: {
 }
 ```
 
+## PostHog Analytics (REQUIRED — DO NOT REMOVE)
+
+Every ALDC prospect site MUST include PostHog client-side tracking in `src/app/layout.tsx`. This is already present in the template — do not remove it when customizing.
+
+- **Script**: `<Script id="posthog-init" strategy="afterInteractive">` with PostHog JS snippet
+- **Key**: `phc_LInuskdo6EBhTQv36KN1eJY4e9ZOb1BkQZLWWCoRU79` (project 316474)
+- **Host**: `https://us.i.posthog.com`
+- **Verification**: After deploying, visit the site and check `eclipse-exp.aldc.io/internal/site-stats` to confirm the new host appears
+
+If `layout.tsx` is rewritten or replaced during customization, the PostHog `<Script>` block must be re-added before `</body>`.
+
 ## Deployment Notes
 - **Vercel**: Use `--scope aldc`. Move `.git` out during deploy (avoids parent git trap)
 - **Cloudflare DNS**: A record to `76.76.21.21`, zone `549f9a25ac1912f7aecf6fecb22e8fa3`
