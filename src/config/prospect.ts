@@ -69,7 +69,7 @@ export const config: ProspectConfig = {
       {
         keywords: ["zeus", "memory", "ai"],
         question: "What is Zeus?",
-        answer: "Zeus Memory is ALDC's AI knowledge engine. It stores and connects insights across your entire marketing ecosystem, building an institutional memory that gets smarter over time. I'm powered by Zeus right now.",
+        answer: "Zeus Memory is the context layer for AI. It stores and connects insights across your entire marketing ecosystem, building an institutional memory that gets smarter over time. I'm powered by Zeus right now.",
       },
       {
         keywords: ["revenue", "sales", "money", "income"],

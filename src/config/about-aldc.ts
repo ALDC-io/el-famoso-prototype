@@ -42,7 +42,7 @@ export const aboutContent = {
 
   zeus: {
     name: "Zeus Memory",
-    tagline: "AI Knowledge Engine",
+    tagline: "Context Layer for AI",
     description:
       "Zeus builds institutional memory from your marketing data. Ask questions in natural language, get answers grounded in your actual performance data. It gets smarter every day.",
     features: [
