@@ -13,33 +13,33 @@
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 227 100% 55%;          /* brand blue — CHANGE PER PROSPECT */
+    --primary: 0 0% 10%;              /* El Famoso black */
     --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96%;
     --secondary-foreground: 222 47% 11%;
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
-    --accent: 191 100% 50%;           /* accent cyan — CHANGE PER PROSPECT */
+    --accent: 38 100% 50%;            /* El Famoso gold/amber */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 227 100% 55%;
+    --ring: 0 0% 10%;
     --radius: 0.5rem;
 
     /* Sidebar — dark theme */
     --sidebar: 240 20% 4%;            /* #0a0a1a */
     --sidebar-foreground: 210 40% 90%;
     --sidebar-muted: 240 10% 15%;
-    --sidebar-accent: 227 100% 55%;   /* matches --primary */
+    --sidebar-accent: 38 100% 50%;    /* El Famoso gold accent */
 
-    /* Chart colors — CHANGE PER PROSPECT */
-    --chart-1: 227 100% 55%;
-    --chart-2: 191 100% 50%;
-    --chart-3: 262 83% 58%;
-    --chart-4: 142 76% 36%;
-    --chart-5: 38 92% 50%;
+    /* Chart colors — El Famoso palette */
+    --chart-1: 0 0% 10%;
+    --chart-2: 38 100% 50%;
+    --chart-3: 0 74% 55%;
+    --chart-4: 262 83% 58%;
+    --chart-5: 160 60% 45%;
   }
 }
 
