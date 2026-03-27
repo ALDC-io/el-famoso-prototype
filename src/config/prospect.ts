@@ -10,11 +10,11 @@ export const config: ProspectConfig = {
   logoPath: "/prospect-logo.svg",
 
   colors: {
-    primary: "32 100% 44%",
+    primary: "28 100% 38%",
     accent: "0 0% 15%",
-    primaryHex: "#E07000",
+    primaryHex: "#C25800",
     accentHex: "#262626",
-    chartColors: ["#E07000", "#262626", "#E53E3E", "#8B5CF6", "#10B981"],
+    chartColors: ["#C25800", "#262626", "#E53E3E", "#8B5CF6", "#10B981"],
   },
 
   // ============================================================

@@ -13,29 +13,29 @@
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 32 100% 44%;            /* El Famoso burnt orange/gold */
+    --primary: 28 100% 38%;            /* El Famoso deep amber — WCAG AA on light bg */
     --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96%;
     --secondary-foreground: 222 47% 11%;
     --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted-foreground: 215 20% 35%;
     --accent: 0 0% 15%;               /* El Famoso dark accent */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 32 100% 44%;
+    --ring: 28 100% 38%;
     --radius: 0.5rem;
 
     /* Sidebar — dark theme */
     --sidebar: 240 20% 4%;            /* #0a0a1a */
     --sidebar-foreground: 210 40% 90%;
     --sidebar-muted: 240 10% 15%;
-    --sidebar-accent: 32 100% 44%;    /* matches --primary */
+    --sidebar-accent: 28 100% 38%;    /* matches --primary */
 
     /* Chart colors — El Famoso palette */
-    --chart-1: 32 100% 44%;
+    --chart-1: 28 100% 38%;
     --chart-2: 0 0% 15%;
     --chart-3: 0 74% 55%;
     --chart-4: 262 83% 58%;
