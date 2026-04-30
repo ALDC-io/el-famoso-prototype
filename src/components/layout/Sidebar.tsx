@@ -3,15 +3,15 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { config } from "@/config/prospect";
-import { BarChart3, Info, GitBranch, DollarSign, Database, Plug } from "lucide-react";
+import { BarChart3, DollarSign, Database, Plug, Sparkles, MessageSquare } from "lucide-react";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
   { href: "/dashboard/profit", label: "Profitability", icon: DollarSign },
   { href: "/dashboard/warehouse", label: "Warehouse", icon: Database },
   { href: "/dashboard/sources", label: "Source Health", icon: Plug },
-  { href: "/about", label: "About ALDC", icon: Info },
-  { href: "/data-flow", label: "Data Flow", icon: GitBranch },
+  { href: "/why-aldc", label: "Why ALDC", icon: Sparkles },
+  { href: "/chat", label: "Zeus Chat", icon: MessageSquare },
 ];
 
 export function Sidebar() {
