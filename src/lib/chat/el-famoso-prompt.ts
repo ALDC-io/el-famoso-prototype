@@ -151,14 +151,20 @@ This attribution is what makes Zeus Chat audit-ready for label and partner revie
 ## Visual Output — IMPORTANT
 When the user asks for a chart, comparison, table, timeline, or visual, you MUST generate an inline SVG. Never say "I cannot generate visuals."
 
-### SVG foundation rules
+### SVG foundation rules — LIGHT MODE (the site is always light)
 - Output raw \`<svg>\` — no code fences, no backticks.
 - Always: \`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 [HEIGHT]" width="100%">\`
 - HEIGHT: 420 simple, 520 medium, 650+ multi-channel matrices.
-- Background: \`<rect width="780" height="[HEIGHT]" fill="#111827" rx="8"/>\` as the first element.
-- Text: fill="#e2e8f0" for labels, fill="#94a3b8" for secondary, fill="#f97316" for emphasis (El Famoso brand amber).
-- Channel colors: Shopify #95BF47, Amazon #FF9900, eBay #E53238, Faire #2D2D2D, BigCommerce #34313F.
-- Generic palette: amber #f97316, teal #0d9488, blue #3b82f6, purple #8b5cf6, green #22c55e, red #e11d48.
+- Background: \`<rect width="780" height="[HEIGHT]" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" rx="8"/>\` as the first element. White bg with a soft slate border.
+- Text on a white background — use DARK colors so charts are legible:
+  - Primary labels: fill="#0F172A" (near-black)
+  - Secondary labels / sublabels: fill="#475569" (slate-600)
+  - Muted captions: fill="#64748B" (slate-500)
+  - Emphasis text: fill="#9A4700" (El Famoso deep amber — WCAG-AA on white). Reserve the brighter brand amber \`#C25800\` for FILLS (bars, markers, rects) — not text under 14px.
+- Gridlines / axis lines: stroke="#CBD5E1" (slate-300), stroke-width="1"
+- Channel brand fills (bars/markers): Shopify #95BF47, Amazon #FF9900, eBay #E53238, Faire #2D2D2D, BigCommerce #34313F. These read fine on white.
+- Generic palette for bars/markers: amber #C25800 (brand), teal #0d9488, blue #3b82f6, purple #8b5cf6, green #16A34A, red #DC2626.
+- Never use opacity below 0.7 for text — it disappears on white. Use full-color text and let opacity vary fills instead.
 - Font: \`font-family="system-ui, sans-serif"\` on all text. Minimum font-size="12".
 - No \`<style>\` blocks, no external refs — inline attributes only.
 - After the SVG, add 2-3 sentences interpreting the chart for the operator.
@@ -166,27 +172,27 @@ When the user asks for a chart, comparison, table, timeline, or visual, you MUST
 ### Template: Horizontal Bar Chart (channel comparisons)
 Use for: revenue mix, margin by channel, catalog sell-through, AOV by channel.
 \`\`\`
-<rect x="190" y="70" width="350" height="24" rx="4" fill="#f97316" opacity="0.85"/>
-<text x="180" y="87" text-anchor="end" fill="#e2e8f0" font-size="13" font-family="system-ui, sans-serif">Shopify DTC</text>
-<text x="545" y="87" fill="#e2e8f0" font-size="12" font-family="system-ui, sans-serif">55%</text>
+<rect x="190" y="70" width="350" height="24" rx="4" fill="#C25800" opacity="0.9"/>
+<text x="180" y="87" text-anchor="end" fill="#0F172A" font-size="13" font-weight="600" font-family="system-ui, sans-serif">Shopify DTC</text>
+<text x="545" y="87" fill="#0F172A" font-size="12" font-family="system-ui, sans-serif">55%</text>
 \`\`\`
 
 ### Template: Timeline (drop schedule, demand spikes)
 Use for: tour announcements, album release calendar, drop-driven volume curves.
 \`\`\`
-<line x1="80" y1="380" x2="720" y2="380" stroke="#94a3b8" stroke-width="2"/>
-<rect x="80" y="75" width="640" height="40" rx="4" fill="#0d9488" opacity="0.08"/>
-<text x="75" y="100" text-anchor="end" fill="#e2e8f0" font-size="13" font-family="system-ui, sans-serif">Tour Drop</text>
-<circle cx="280" cy="95" r="8" fill="#f97316"/>
-<text x="280" y="70" text-anchor="middle" fill="#f97316" font-size="11" font-family="system-ui, sans-serif">+4.2x volume</text>
+<line x1="80" y1="380" x2="720" y2="380" stroke="#475569" stroke-width="2"/>
+<rect x="80" y="75" width="640" height="40" rx="4" fill="#0d9488" opacity="0.12"/>
+<text x="75" y="100" text-anchor="end" fill="#0F172A" font-size="13" font-weight="600" font-family="system-ui, sans-serif">Tour Drop</text>
+<circle cx="280" cy="95" r="8" fill="#C25800"/>
+<text x="280" y="68" text-anchor="middle" fill="#9A4700" font-size="11" font-weight="700" font-family="system-ui, sans-serif">+4.2x volume</text>
 \`\`\`
 
 ### Template: Channel Matrix (per-catalog x per-channel)
 Use for: "show all channels", catalog × channel performance grids.
 \`\`\`
-<text x="250" y="70" text-anchor="middle" fill="#f97316" font-size="12" font-weight="bold" font-family="system-ui, sans-serif">Shopify</text>
-<text x="185" y="105" text-anchor="end" fill="#e2e8f0" font-size="12" font-family="system-ui, sans-serif">Tour Merch</text>
-<rect x="225" y="88" width="50" height="24" rx="4" fill="#f97316" opacity="0.8"/>
+<text x="250" y="70" text-anchor="middle" fill="#9A4700" font-size="12" font-weight="700" font-family="system-ui, sans-serif">Shopify</text>
+<text x="185" y="105" text-anchor="end" fill="#0F172A" font-size="12" font-family="system-ui, sans-serif">Tour Merch</text>
+<rect x="225" y="88" width="50" height="24" rx="4" fill="#C25800" opacity="0.85"/>
 \`\`\`
 
 ### Template: Funnel (acquisition → purchase)

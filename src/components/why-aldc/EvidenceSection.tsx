@@ -38,15 +38,15 @@ export default function EvidenceSection() {
             className="rounded-lg border border-primary/15 bg-primary/[0.03] px-3 py-2.5 text-center"
           >
             <p className="text-xs font-semibold text-primary">{p.label}</p>
-            <p className="mt-0.5 text-[10px] text-foreground/40">{p.desc}</p>
+            <p className="mt-0.5 text-[10px] text-foreground/65">{p.desc}</p>
           </div>
         ))}
       </div>
 
       {/* Single mock interaction */}
-      <div className="mt-8 overflow-hidden rounded-xl border border-white/10">
+      <div className="mt-8 overflow-hidden rounded-xl border border-slate-200">
         {/* Question */}
-        <div className="border-b border-white/5 bg-white/[0.03] px-5 py-3">
+        <div className="border-b border-slate-200/70 bg-slate-50 px-5 py-3">
           <div className="flex items-start gap-3">
             <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20 text-[10px] font-bold text-primary">
               Q
@@ -80,7 +80,7 @@ export default function EvidenceSection() {
             {ev.sources.map((s) => (
               <span
                 key={s.ref}
-                className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/[0.02] px-2 py-1 text-[10px] text-foreground/40"
+                className="inline-flex items-center gap-1.5 rounded-md border border-slate-200/70 bg-slate-50 px-2 py-1 text-[10px] text-foreground/65"
               >
                 <svg
                   width="10"
@@ -96,7 +96,7 @@ export default function EvidenceSection() {
                   />
                 </svg>
                 {s.ref}
-                <span className="text-foreground/25">{s.date}</span>
+                <span className="text-foreground/70">{s.date}</span>
               </span>
             ))}
           </div>

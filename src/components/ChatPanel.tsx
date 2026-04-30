@@ -56,41 +56,47 @@ function formatForPrint(text: string): string {
     .replace(/\n\n/g, "</p><p>")
     .replace(/\n/g, "<br/>");
 
-  // Restore SVGs — comprehensive dark→light conversion for print
+  // Restore SVGs — convert dark-mode SVGs to light. Skip if already light.
+  const DARK_BG_RE = /fill="#(111827|0a0a1a|1a1a2e|0f172a|1e1e2e|0d1117|18181b|1f2937|374151)"/i;
   svgBlocks.forEach((svg, i) => {
-    const lightSvg = svg
-      // Dark backgrounds → white
-      .replace(/fill="#111827"/gi, 'fill="#ffffff"')
-      .replace(/fill="#0a0a1a"/gi, 'fill="#ffffff"')
-      .replace(/fill="#1a1a2e"/gi, 'fill="#ffffff"')
-      .replace(/fill="#0f172a"/gi, 'fill="#ffffff"')
-      .replace(/fill="#1e1e2e"/gi, 'fill="#ffffff"')
-      .replace(/fill="#0d1117"/gi, 'fill="#ffffff"')
-      .replace(/fill="#18181b"/gi, 'fill="#ffffff"')
-      .replace(/fill="#1f2937"/gi, 'fill="#f8fafc"')
-      .replace(/fill="#374151"/gi, 'fill="#f1f5f9"')
-      // Light/white text → dark
-      .replace(/fill="#e2e8f0"/gi, 'fill="#1e293b"')
-      .replace(/fill="#f8fafc"/gi, 'fill="#1e293b"')
-      .replace(/fill="#f1f5f9"/gi, 'fill="#334155"')
-      .replace(/fill="#cbd5e1"/gi, 'fill="#475569"')
-      .replace(/fill="#ffffff"/gi, 'fill="#1e293b"')
-      // Muted text stays readable
-      .replace(/fill="#94a3b8"/gi, 'fill="#64748b"')
-      .replace(/fill="#64748b"/gi, 'fill="#475569"')
-      .replace(/fill="#9ca3af"/gi, 'fill="#6b7280"')
-      .replace(/fill="#6b7280"/gi, 'fill="#4b5563"')
-      // Strokes
-      .replace(/stroke="#e2e8f0"/gi, 'stroke="#334155"')
-      .replace(/stroke="#94a3b8"/gi, 'stroke="#64748b"')
-      .replace(/stroke="#ffffff"/gi, 'stroke="#1e293b"')
-      .replace(/stroke="#374151"/gi, 'stroke="#cbd5e1"')
-      // Semi-transparent fills on dark → adjust for white bg
-      .replace(/opacity="0\.08"/g, 'opacity="0.12"')
-      .replace(/opacity="0\.05"/g, 'opacity="0.08"')
-      // Fix: white-on-white from the background rect replacement
-      // The first <rect> is usually the background — make it white with border
-      .replace(/<rect([^>]*?)fill="#ffffff"([^>]*?)rx="8"/, '<rect$1fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"$2rx="8"');
+    const isDarkSource = DARK_BG_RE.test(svg);
+    let lightSvg = svg;
+    if (isDarkSource) {
+      lightSvg = svg
+        // Dark backgrounds → white
+        .replace(/fill="#111827"/gi, 'fill="#ffffff"')
+        .replace(/fill="#0a0a1a"/gi, 'fill="#ffffff"')
+        .replace(/fill="#1a1a2e"/gi, 'fill="#ffffff"')
+        .replace(/fill="#0f172a"/gi, 'fill="#ffffff"')
+        .replace(/fill="#1e1e2e"/gi, 'fill="#ffffff"')
+        .replace(/fill="#0d1117"/gi, 'fill="#ffffff"')
+        .replace(/fill="#18181b"/gi, 'fill="#ffffff"')
+        .replace(/fill="#1f2937"/gi, 'fill="#f8fafc"')
+        .replace(/fill="#374151"/gi, 'fill="#f1f5f9"')
+        // Protect the background rect BEFORE the white-text→dark-text rule
+        // so the bg stays light instead of getting flipped to dark slate.
+        // Match on width="780" — the prompt enforces this constant for the
+        // bg rect specifically, so it's a more reliable selector than rx="N".
+        .replace(/<rect(\s+width="780"[^>]*?)fill="#ffffff"([^>]*?)>/, '<rect$1fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"$2>')
+        // Light/white text → dark (now safe — bg rect already protected)
+        .replace(/fill="#e2e8f0"/gi, 'fill="#1e293b"')
+        .replace(/fill="#f1f5f9"/gi, 'fill="#334155"')
+        .replace(/fill="#cbd5e1"/gi, 'fill="#475569"')
+        .replace(/fill="#ffffff"/gi, 'fill="#1e293b"')
+        // Muted text stays readable
+        .replace(/fill="#94a3b8"/gi, 'fill="#64748b"')
+        .replace(/fill="#64748b"/gi, 'fill="#475569"')
+        .replace(/fill="#9ca3af"/gi, 'fill="#6b7280"')
+        .replace(/fill="#6b7280"/gi, 'fill="#4b5563"')
+        // Strokes
+        .replace(/stroke="#e2e8f0"/gi, 'stroke="#334155"')
+        .replace(/stroke="#94a3b8"/gi, 'stroke="#64748b"')
+        .replace(/stroke="#ffffff"/gi, 'stroke="#1e293b"')
+        .replace(/stroke="#374151"/gi, 'stroke="#cbd5e1"')
+        // Semi-transparent fills on dark → bump for white bg
+        .replace(/opacity="0\.08"/g, 'opacity="0.12"')
+        .replace(/opacity="0\.05"/g, 'opacity="0.08"');
+    }
     processed = processed.replace(`%%SVG_${i}%%`, `<div class="chart">${lightSvg}</div>`);
   });
 
@@ -263,8 +269,8 @@ function renderMarkdownOnly(text: string): string {
         const isHead = hasHeader && i === 0;
         const tag = isHead ? "th" : "td";
         const cellClass = isHead
-          ? "px-2 py-1.5 text-left font-semibold text-primary border-b border-white/20 bg-white/[0.04]"
-          : "px-2 py-1.5 text-left text-foreground/70 border-b border-white/5";
+          ? "px-2 py-1.5 text-left font-semibold text-primary border-b border-slate-300 bg-slate-50"
+          : "px-2 py-1.5 text-left text-foreground/70 border-b border-slate-200/70";
         html += "<tr>";
         cells.forEach((c: string) => {
           html += `<${tag} class="${cellClass}">${c}</${tag}>`;
@@ -280,9 +286,9 @@ function renderMarkdownOnly(text: string): string {
   processed = processed
     .replace(/```[\s\S]*?```/g, (match) => {
       const code = match.replace(/```\w*\n?/, "").replace(/```$/, "");
-      return `<pre class="my-2 rounded-lg bg-white/[0.04] p-3 text-xs overflow-x-auto"><code>${code}</code></pre>`;
+      return `<pre class="my-2 rounded-lg bg-slate-50 p-3 text-xs overflow-x-auto"><code>${code}</code></pre>`;
     })
-    .replace(/`([^`]+)`/g, '<code class="rounded bg-white/[0.06] px-1 py-0.5 text-xs text-primary">$1</code>')
+    .replace(/`([^`]+)`/g, '<code class="rounded bg-slate-100 px-1 py-0.5 text-xs text-primary">$1</code>')
     .replace(/^#### (.+)$/gm, '<h4 class="text-sm font-semibold text-foreground/90 mt-3 mb-1">$1</h4>')
     .replace(/^### (.+)$/gm, '<h3 class="text-sm font-semibold text-primary mt-3 mb-1">$1</h3>')
     .replace(/^## (.+)$/gm, '<h2 class="text-base font-semibold text-primary mt-4 mb-1">$1</h2>')
@@ -290,7 +296,7 @@ function renderMarkdownOnly(text: string): string {
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-foreground/80">$1</li>')
     .replace(/^\d+\.\s+(.+)$/gm, '<li class="ml-4 list-decimal text-foreground/80">$1</li>')
-    .replace(/^---$/gm, '<hr class="my-3 border-white/10" />')
+    .replace(/^---$/gm, '<hr class="my-3 border-slate-200" />')
     // Confidence badge — render inline **Confidence: High (94%)** as styled badge
     .replace(
       /\*\*Confidence:\s*(High|Moderate|Low)\s*\((\d+)%\)\*\*/g,
@@ -302,7 +308,7 @@ function renderMarkdownOnly(text: string): string {
     // Sources block — style the **Sources:** section
     .replace(
       /\*\*Sources:\*\*/g,
-      '<div style="margin-top:12px;padding:10px 14px;border:1px solid rgba(255,255,255,0.08);border-radius:10px;background:rgba(255,255,255,0.02)"><p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:rgba(13,148,136,0.7);margin-bottom:6px">Sources</p>',
+      '<div style="margin-top:12px;padding:10px 14px;border:1px solid #E2E8F0;border-radius:10px;background:#F8FAFC"><p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#C25800;margin-bottom:6px">Sources</p>',
     )
     .replace(/\n\n/g, '<div class="mt-2"></div>')
     .replace(/\n/g, "<br />");
@@ -318,7 +324,7 @@ function renderMarkdown(text: string, streaming: boolean = true): string {
 
   // Restore completed SVG blocks
   svgBlocks.forEach((svg, i) => {
-    const wrapped = `<div class="my-4 w-full overflow-x-auto rounded-lg border border-white/10 bg-[#111827] p-4" style="min-height:400px">${svg.replace(/<svg/, '<svg style="width:100%;height:auto;min-height:380px"')}</div>`;
+    const wrapped = `<div class="my-4 w-full overflow-x-auto rounded-lg border border-slate-200 bg-white p-4 shadow-sm" style="min-height:400px">${svg.replace(/<svg/, '<svg style="width:100%;height:auto;min-height:380px"')}</div>`;
     html = html.replace(`%%SVG_BLOCK_${i}%%`, wrapped);
   });
 
@@ -342,7 +348,7 @@ function renderMarkdown(text: string, streaming: boolean = true): string {
         if (!rawSvg.includes("</svg>")) {
           rawSvg += "</svg>";
         }
-        html += `<div class="my-4 w-full overflow-x-auto rounded-lg border border-white/10 bg-[#111827] p-4" style="min-height:400px">${rawSvg.replace(/<svg/, '<svg style="width:100%;height:auto;min-height:380px"')}</div>`;
+        html += `<div class="my-4 w-full overflow-x-auto rounded-lg border border-slate-200 bg-white p-4 shadow-sm" style="min-height:400px">${rawSvg.replace(/<svg/, '<svg style="width:100%;height:auto;min-height:380px"')}</div>`;
       }
     }
   }
@@ -493,7 +499,7 @@ export default function ChatPanel() {
   return (
     <div className="flex h-full flex-col">
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="border-b border-white/10 bg-white/[0.02] px-4 py-3">
+      <div className="border-b border-slate-200 bg-slate-50 px-4 py-3">
         <div className="mx-auto flex max-w-5xl items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/15">
             <svg
@@ -512,9 +518,9 @@ export default function ChatPanel() {
           </div>
           <div>
             <h1 className="text-sm font-semibold text-foreground">
-              Zeus Chat <span className="font-normal text-foreground/40">|</span> <span className="font-normal text-primary">El Famoso</span>
+              Zeus Chat <span className="font-normal text-foreground/65">|</span> <span className="font-normal text-primary">El Famoso</span>
             </h1>
-            <p className="text-xs text-foreground/40">
+            <p className="text-xs text-foreground/65">
               Commerce intelligence across every channel and catalog
             </p>
           </div>
@@ -550,7 +556,7 @@ export default function ChatPanel() {
               {/* Suggested questions */}
               {showSuggestions && (
                 <div className="space-y-2">
-                  <p className="text-xs font-medium uppercase tracking-wider text-foreground/30">
+                  <p className="text-xs font-medium uppercase tracking-wider text-foreground/60">
                     Suggested questions
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -558,10 +564,10 @@ export default function ChatPanel() {
                       <button
                         key={i}
                         onClick={() => sendMessage(q.text)}
-                        className="group rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-left text-sm text-foreground/70 transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-foreground/90"
+                        className="group rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-left text-sm text-foreground/70 transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-foreground/90"
                       >
                         <span>{q.text}</span>
-                        <span className="ml-2 text-xs text-foreground/25 group-hover:text-primary/50">
+                        <span className="ml-2 text-xs text-foreground/70 group-hover:text-primary/50">
                           {q.tags.join(", ")}
                         </span>
                       </button>
@@ -586,7 +592,7 @@ export default function ChatPanel() {
                 } ${
                   msg.role === "user"
                     ? "bg-primary/15 text-foreground"
-                    : "border-l-2 border-primary/40 bg-white/[0.04] text-foreground/85"
+                    : "border-l-2 border-primary/40 bg-white text-foreground shadow-sm"
                 }`}
               >
                 {msg.role === "assistant" ? (
@@ -602,10 +608,10 @@ export default function ChatPanel() {
                       />
                       {/* Per-response action buttons */}
                       {!(isStreaming && msg.id === messages[messages.length - 1]?.id) && (
-                        <div className="mt-3 flex gap-2 border-t border-white/5 pt-2">
+                        <div className="mt-3 flex gap-2 border-t border-slate-200/70 pt-2">
                           <button
                             onClick={() => navigator.clipboard.writeText(msg.content)}
-                            className="flex items-center gap-1 rounded px-2 py-1 text-[11px] text-foreground/30 transition-colors hover:bg-white/5 hover:text-foreground/60"
+                            className="flex items-center gap-1 rounded px-2 py-1 text-[11px] text-foreground/60 transition-colors hover:bg-slate-50 hover:text-foreground/60"
                           >
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                             Copy
@@ -616,7 +622,7 @@ export default function ChatPanel() {
                               const query = idx > 0 ? messages[idx - 1]?.content || "" : "";
                               generateReport(query, msg.content);
                             }}
-                            className="flex items-center gap-1 rounded px-2 py-1 text-[11px] text-foreground/30 transition-colors hover:bg-white/5 hover:text-foreground/60"
+                            className="flex items-center gap-1 rounded px-2 py-1 text-[11px] text-foreground/60 transition-colors hover:bg-slate-50 hover:text-foreground/60"
                           >
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                             Export PDF
@@ -640,7 +646,7 @@ export default function ChatPanel() {
       </div>
 
       {/* ── Input ──────────────────────────────────────────────────────── */}
-      <div className="border-t border-white/10 bg-white/[0.02] px-4 py-3">
+      <div className="border-t border-slate-200 bg-slate-50 px-4 py-3">
         <div className="mx-auto flex max-w-5xl items-end gap-2">
           <textarea
             ref={inputRef}
@@ -649,7 +655,7 @@ export default function ChatPanel() {
             onKeyDown={handleKeyDown}
             placeholder="Ask about merch revenue, fulfillment, channel mix, tour spikes..."
             rows={1}
-            className="flex-1 resize-none rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/30 focus:border-primary/40 focus:outline-none"
+            className="flex-1 resize-none rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/55 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
           />
           <button
             onClick={() => sendMessage(input)}
@@ -671,7 +677,7 @@ export default function ChatPanel() {
             </svg>
           </button>
         </div>
-        <p className="mx-auto mt-2 max-w-5xl text-center text-[10px] text-foreground/20">
+        <p className="mx-auto mt-2 max-w-5xl text-center text-[10px] text-foreground/70">
           Answers grounded in El Famoso’s operational baseline. Verify against
           authoritative sources before policy decisions.
         </p>

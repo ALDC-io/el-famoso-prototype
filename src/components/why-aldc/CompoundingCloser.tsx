@@ -14,7 +14,7 @@ export default function CompoundingCloser() {
           {SITE_CONTENT.compoundingCloser.description}
         </p>
         <div className="mx-auto mt-6 h-px w-24 bg-primary/20" />
-        <p className="mt-6 text-sm text-foreground/40">
+        <p className="mt-6 text-sm text-foreground/65">
           {SITE_CONTENT.compoundingCloser.footer}
         </p>
       </div>

@@ -18,7 +18,7 @@ export default function CompoundingHero() {
         </span>
         .
       </p>
-      <p className="mx-auto mt-3 max-w-xl text-base text-foreground/50 leading-relaxed">
+      <p className="mx-auto mt-3 max-w-xl text-base text-foreground/70 leading-relaxed">
         {hero.subtext}
       </p>
 
@@ -34,14 +34,14 @@ export default function CompoundingHero() {
               }}
             />
             <p className="text-sm font-bold text-primary">{m.label}</p>
-            <p className="max-w-[10rem] text-xs text-foreground/40">
+            <p className="max-w-[10rem] text-xs text-foreground/65">
               {m.desc}
             </p>
           </div>
         ))}
       </div>
 
-      <p className="mx-auto mt-8 max-w-md text-xs text-foreground/30">
+      <p className="mx-auto mt-8 max-w-md text-xs text-foreground/60">
         {hero.footer}
       </p>
     </section>

@@ -16,19 +16,19 @@ export default function UnifiedViewSection() {
       <div className="mt-12">
         {/* Tier 1: Data Silos */}
         <div>
-          <p className="text-center text-[10px] font-semibold uppercase tracking-widest text-foreground/30">
+          <p className="text-center text-[10px] font-semibold uppercase tracking-widest text-foreground/60">
             {content.silosLabel}
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
             {content.dataSilos.map((silo) => (
               <div
                 key={silo.name}
-                className="rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-center"
+                className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-center"
               >
                 <p className="text-xs font-medium text-foreground/60">
                   {silo.name}
                 </p>
-                <p className="mt-0.5 text-[10px] text-foreground/30">
+                <p className="mt-0.5 text-[10px] text-foreground/60">
                   {silo.sub}
                 </p>
               </div>
@@ -63,13 +63,13 @@ export default function UnifiedViewSection() {
                 <p className="text-sm font-bold text-primary">
                   {content.unifiedLayerName}
                 </p>
-                <p className="text-[10px] text-foreground/40">
+                <p className="text-[10px] text-foreground/65">
                   {content.unifiedLayerSub}
                 </p>
               </div>
             </div>
           </div>
-          <p className="mx-auto mt-3 max-w-lg text-center text-xs text-foreground/45">
+          <p className="mx-auto mt-3 max-w-lg text-center text-xs text-foreground/65">
             {content.unifiedLayerDescription}
           </p>
         </div>
@@ -90,7 +90,7 @@ export default function UnifiedViewSection() {
 
         {/* Tier 3: Purpose-built views */}
         <div>
-          <p className="text-center text-[10px] font-semibold uppercase tracking-widest text-foreground/30">
+          <p className="text-center text-[10px] font-semibold uppercase tracking-widest text-foreground/60">
             {content.viewsLabel}
           </p>
           <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -109,14 +109,14 @@ export default function UnifiedViewSection() {
                 >
                   {view.name}
                 </p>
-                <p className="mt-1 text-[11px] text-foreground/40">
+                <p className="mt-1 text-[11px] text-foreground/65">
                   {view.desc}
                 </p>
               </div>
             ))}
           </div>
           <div className="mt-3 flex justify-center">
-            <span className="rounded-full border border-dashed border-foreground/15 px-4 py-1.5 text-[11px] text-foreground/30">
+            <span className="rounded-full border border-dashed border-foreground/15 px-4 py-1.5 text-[11px] text-foreground/60">
               {content.viewsFooter}
             </span>
           </div>

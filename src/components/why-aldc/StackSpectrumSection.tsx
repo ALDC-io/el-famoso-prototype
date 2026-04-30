@@ -31,13 +31,13 @@ export default function StackSpectrumSection() {
                 >
                   {cap.name}
                 </span>
-                <span className="mt-1 max-w-[9rem] text-[9px] text-foreground/30">
+                <span className="mt-1 max-w-[9rem] text-[9px] text-foreground/60">
                   {cap.desc}
                 </span>
               </div>
             ))}
           </div>
-          <p className="mt-2.5 text-[10px] text-foreground/30">
+          <p className="mt-2.5 text-[10px] text-foreground/60">
             {content.capabilitiesFooter}
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function StackSpectrumSection() {
         <p className="text-center text-[10px] font-semibold uppercase tracking-widest text-primary">
           {content.spectrumLabel}
         </p>
-        <p className="mt-1 text-center text-[11px] text-foreground/35">
+        <p className="mt-1 text-center text-[11px] text-foreground/60">
           {content.spectrumSubLabel}
         </p>
 
@@ -95,7 +95,7 @@ export default function StackSpectrumSection() {
                     >
                       {stage.name}
                     </p>
-                    <p className="text-[10px] text-foreground/35">
+                    <p className="text-[10px] text-foreground/60">
                       {stage.sub}
                     </p>
                     {stage.ai && (
@@ -103,7 +103,7 @@ export default function StackSpectrumSection() {
                         <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[9px] font-bold text-amber-500">
                           {stage.ai}
                         </span>
-                        <span className="text-[9px] text-foreground/30">
+                        <span className="text-[9px] text-foreground/60">
                           {stage.aiRole}
                         </span>
                       </div>
@@ -127,7 +127,7 @@ export default function StackSpectrumSection() {
               strokeLinejoin="round"
             />
           </svg>
-          <span className="text-[10px] text-foreground/35">
+          <span className="text-[10px] text-foreground/60">
             {content.feedbackLoop}{" "}
             <span className="font-medium text-primary/70">
               {content.feedbackLoopHighlight}

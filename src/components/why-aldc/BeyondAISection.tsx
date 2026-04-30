@@ -34,7 +34,7 @@ export default function BeyondAISection() {
 
       {/* Step 1: What frontier AI gives you */}
       <div className="mt-14">
-        <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
           <div className="flex flex-wrap items-center justify-center gap-2">
             {content.frontierTools.map((tool) => (
               <span
@@ -50,23 +50,23 @@ export default function BeyondAISection() {
               </span>
             ))}
           </div>
-          <p className="mt-4 text-center text-xs font-semibold uppercase tracking-wider text-foreground/40">
+          <p className="mt-4 text-center text-xs font-semibold uppercase tracking-wider text-foreground/65">
             {content.frontierLabel}
           </p>
           <div className="mx-auto mt-4 grid max-w-3xl gap-2 sm:grid-cols-2">
             {content.aloneCapabilities.map((cap) => (
               <div
                 key={cap}
-                className="flex items-start gap-2 rounded-lg bg-white/5 px-3 py-2"
+                className="flex items-start gap-2 rounded-lg bg-slate-50 px-3 py-2"
               >
                 <span className="mt-0.5">
-                  <CheckIcon className="shrink-0 text-foreground/30" />
+                  <CheckIcon className="shrink-0 text-foreground/60" />
                 </span>
-                <p className="text-sm text-foreground/50">{cap}</p>
+                <p className="text-sm text-foreground/70">{cap}</p>
               </div>
             ))}
           </div>
-          <p className="mt-4 text-center text-sm text-foreground/40">
+          <p className="mt-4 text-center text-sm text-foreground/65">
             {content.frontierFooter}
           </p>
         </div>
@@ -76,7 +76,7 @@ export default function BeyondAISection() {
       <div className="mt-2">
         <div className="flex justify-center py-3">
           <div className="flex flex-col items-center gap-1">
-            <svg width="2" height="20" className="text-foreground/10">
+            <svg width="2" height="20" className="text-foreground/35">
               <line
                 x1="1"
                 y1="0"
@@ -90,7 +90,7 @@ export default function BeyondAISection() {
             <span className="rounded-full border border-red-500/20 bg-red-500/10 px-4 py-1 text-[10px] font-bold uppercase tracking-widest text-red-400">
               {content.singleModelTrapLabel}
             </span>
-            <svg width="2" height="20" className="text-foreground/10">
+            <svg width="2" height="20" className="text-foreground/35">
               <line
                 x1="1"
                 y1="0"
@@ -117,7 +117,7 @@ export default function BeyondAISection() {
                 <p className="text-sm font-medium text-foreground/70">
                   {gap.label}
                 </p>
-                <p className="mt-1 text-sm text-foreground/40">{gap.detail}</p>
+                <p className="mt-1 text-sm text-foreground/65">{gap.detail}</p>
               </div>
             ))}
           </div>
@@ -128,7 +128,7 @@ export default function BeyondAISection() {
       <div className="mt-2">
         <div className="flex justify-center py-3">
           <div className="flex flex-col items-center gap-1">
-            <svg width="2" height="20" className="text-foreground/10">
+            <svg width="2" height="20" className="text-foreground/35">
               <line
                 x1="1"
                 y1="0"
@@ -142,7 +142,7 @@ export default function BeyondAISection() {
             <span className="rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-[10px] font-bold uppercase tracking-widest text-primary">
               {content.addIntelligenceLabel}
             </span>
-            <svg width="2" height="20" className="text-foreground/10">
+            <svg width="2" height="20" className="text-foreground/35">
               <line
                 x1="1"
                 y1="0"
@@ -160,7 +160,7 @@ export default function BeyondAISection() {
           <p className="text-center text-xs font-semibold uppercase tracking-wider text-primary">
             {content.stackLabel}
           </p>
-          <p className="mx-auto mt-2 max-w-lg text-center text-sm text-foreground/50">
+          <p className="mx-auto mt-2 max-w-lg text-center text-sm text-foreground/70">
             {content.stackDescription}
           </p>
 
@@ -186,14 +186,14 @@ export default function BeyondAISection() {
                 >
                   {layer.role}
                 </p>
-                <p className="mt-2 text-xs leading-relaxed text-foreground/50">
+                <p className="mt-2 text-xs leading-relaxed text-foreground/70">
                   {layer.detail}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mx-auto mt-5 max-w-md text-center text-xs text-foreground/35">
+          <p className="mx-auto mt-5 max-w-md text-center text-xs text-foreground/60">
             {content.stackFooter}
           </p>
         </div>
@@ -203,7 +203,7 @@ export default function BeyondAISection() {
       <div className="mt-2">
         <div className="flex justify-center py-3">
           <div className="flex flex-col items-center gap-1">
-            <svg width="2" height="20" className="text-foreground/10">
+            <svg width="2" height="20" className="text-foreground/35">
               <line
                 x1="1"
                 y1="0"
@@ -215,7 +215,7 @@ export default function BeyondAISection() {
               />
             </svg>
             <span className="text-2xl font-bold text-primary">=</span>
-            <svg width="2" height="12" className="text-foreground/10">
+            <svg width="2" height="12" className="text-foreground/35">
               <line
                 x1="1"
                 y1="0"
@@ -258,7 +258,7 @@ export default function BeyondAISection() {
         <p className="mt-2 text-lg text-primary">
           {content.punchlineSecondary}
         </p>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/50">
+        <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/70">
           {content.punchlineFooter}
         </p>
       </div>
